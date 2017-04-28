@@ -1,0 +1,22 @@
+box: golang
+
+dev:
+  steps:
+    - setup-go-workspace:
+        package-dir: github.com/BeenzSyed/testpipeline
+
+    - internal/watch:
+        code: go run main.go
+        reload: true
+
+build:
+  steps:
+    - wercker/golint
+    - script:
+        name: go build
+        code: |
+          go build ./...
+    - script:
+        name: go test
+        code: |
+          go test ./...
